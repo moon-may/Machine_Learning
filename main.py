@@ -4,7 +4,7 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tensorflow import keras
 import pandas as pd
-from users import users
+from src.users import users
 
 
 def load_model():
@@ -86,7 +86,7 @@ def open_app():
 
     # Окно ввода имени файла
     data_entry = ttk.Entry(main_frame, font='20', width=50)
-    data_entry.insert(0, 'new_data.csv')
+    data_entry.insert(0, 'datasets/new_data.csv')
     data_entry.pack(padx=10, pady=10)
 
     # Кпопка для расчета
