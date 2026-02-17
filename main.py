@@ -41,8 +41,11 @@ def open_app():
             showinfo(title='Ошибка чтения файла', message='Не удалось прочитать файл')
             return
 
-        id_list = data['id_student'] # получаем список "имен"
-        X_new = data.drop(columns=['id_student']) # удаляем ненужную колонку
+        try:
+            id_list = data['id_student'] # получаем список "имен"
+            X_new = data.drop(columns=['id_student']) # удаляем ненужную колонку
+        except KeyError:
+            showinfo(title='Ошибка чтения файла', message='Неверное содержание файла')
 
         # Предсказание, вероятность попадания в группу риска
         predicts = model.predict(X_new)
