@@ -82,7 +82,19 @@ def open_app():
         data_entry.delete(0, END)  # очистить поле
         data_entry.insert(0, filepath)  # ввести путь к файлу
 
+    # Запись результатов предсказаний
+    def write_csv():
+        text = result_entry.get('1.0', 'end')
 
+        with open('risk_group.txt', 'w', encoding='utf-8') as f:
+            f.write(text)
+
+        showinfo(title='Сохранено', message='Результаты сохранены в risk_group.txt')
+
+
+    def clear_result_entry():
+        result_entry.delete('1.0', 'end')
+        result_label.config(text='')
 
     root = Tk()
     # Заголовок окна
@@ -132,6 +144,19 @@ def open_app():
     result_entry = ScrolledText(result_frame, width=400, height=500,
                                 font=('Arial', 14))
     result_entry.pack(anchor='w', pady=10, padx=10)
+
+    bottom_frame = Frame(main_frame, background='#f6f5fb')
+    bottom_frame.pack(side='right', fill='y', anchor='s')
+
+    # Кнопка для сохранения результатов
+    res_btn = Button(bottom_frame, text='Сохранить данные', font=20, background='#B3AADF',
+                     command=write_csv, width=20)
+    res_btn.pack(side='bottom', pady=(0, 5))
+
+    # Кнопка для очистки вывода
+    clear_btn = Button(bottom_frame, text='Очистить поля вывода', font=20, background='#B3AADF',
+                       command=clear_result_entry, width=20)
+    clear_btn.pack(side='bottom')
 
     root.mainloop()
     return root     # возвращаем окно для дальнейшего использования в predict()
